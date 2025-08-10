@@ -7,9 +7,10 @@ import matplotlib.pyplot as plt
 
 # System Properties
 
-m = 2
-d = 4
-k = 400
+m = 2                   # Mass
+k = -400                 # Stiffness
+d = 4                   # Damping
+T = 10                   # Total Time
 
 # Initial Conditions 
 x0_1 = 0
@@ -22,20 +23,34 @@ A = np.array([[-d/m, -k/m], [1, 0]])
 
 eig_val, eig_vec = np.linalg.eig(A)
 
-print(eig_vec)
-
-
 # Eigen Value Decomposition
 
 V = eig_vec 
 
 b_vec = np.dot(np.linalg.inv(V), x0)
 
-print("Eigenvalues:", eig_val)
-print("b vector:", b_vec)
+# print("Eigenvalues:", eig_val)
+# print("b vector:", b_vec)
+
+if (np.imag(eig_val[0]) !=0 and np.imag(eig_val[1]) !=0):
+    if (np.real(eig_val[0])<0 and np.real(eig_val[1])<0):
+        print("Fixed Point Type:  Stable Focus")
+    elif (np.real(eig_val[0])==0 and np.real(eig_val[1])==0):
+        print("Fixed Point Type:  Center")
+    elif (np.real(eig_val[0])>0 and np.real(eig_val[1])>0):
+        print("Fixed Point Type:  Unstable Focus")
+
+if (np.imag(eig_val[0]) ==0 and np.imag(eig_val[1]) ==0):
+    if (np.real(eig_val[0])<0 and np.real(eig_val[1])<0):
+        print("Fixed Point Type:  Stable Node")
+    elif (np.real(eig_val[0])>0 and np.real(eig_val[1])>0):
+        print("Fixed Point Type:  Unstable Node")
+    elif ((np.real(eig_val[0])>0 and np.real(eig_val[1])<0) or (np.real(eig_val[0])<0 and np.real(eig_val[1])>0)):
+        print("Fixed Point Type:  Saddle")
+
 
 # Time vector
-t = np.linspace(0, 10, 1000)
+t = np.linspace(0, T, 1000)
 
 # Calculate the analytical solution using eigenvalue decomposition
 # x(t) = sum(V[:, i] * b_vec[i] * exp(eig_val[i] * t)) for i = 0, 1
@@ -77,7 +92,7 @@ plt.title('Velocity and Position vs Time')
 plt.show()
 
 # Plot 2: Phase Plane Projection
-plt.figure(figsize=(15, 10))
+plt.figure(figsize=(8, 8))
 plt.plot(position, velocity, 'k-', linewidth=2, label='Trajectory')
 
 # Mark start and end points
