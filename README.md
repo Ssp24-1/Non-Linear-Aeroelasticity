@@ -1,5 +1,9 @@
 # Non-Linear-Aeroelasticity
-Cubic Stiffness of 2D Airfoil Section
+Repository contains codes to showcase and model the physics and visuals of Non-linear Aeroelastic Pheomena. More will be added as code is completed. Please read the attached text/report for theoretical and mathematical undersanding.
+
+1. Cubic Stiffness of 2D Airfoil Section
+2. Stability Osicllators
+
 
 Self-made Python code of a few important examples from the Theory of Nonlinear Aeroelasticity from the book (Introduction to Non Linear Aeroelasticity by Grigorios Dimitriadis). 
 
